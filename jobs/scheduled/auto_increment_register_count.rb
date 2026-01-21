@@ -14,7 +14,7 @@ module Jobs
 
     def should_run_now?
       now = Time.zone.now
-      now.hour == 11 && now.min == 35
+      now.hour == 12
     end
 
     def increment_register_count
