@@ -2,7 +2,7 @@
 
 module Jobs
   class AutoIncrementRegisterCount < ::Jobs::Scheduled
-    every 1.day
+    every 1.hour
 
     def execute(args)
       return unless should_run_now?
@@ -14,7 +14,7 @@ module Jobs
 
     def should_run_now?
       now = Time.zone.now
-      now.hour == 12
+      now.hour == 7
     end
 
     def increment_register_count
@@ -26,10 +26,11 @@ module Jobs
 
       new_value = setting.value.to_i + rand(80..150)
       setting.update!(value: new_value)
+      theme.save!
     end
 
     def find_target_theme
-      Theme.find_by(name: "Custom User Registration Count")
+      Theme.find_by(name: "網站人數修改")
     end
   end
 end
